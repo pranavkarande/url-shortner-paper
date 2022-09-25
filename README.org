@@ -1,7 +1,7 @@
 * url-shortner-paper
 Research Paper written in org-mode using the elsevier latex template
 * Dependencies
-1)[[https://www.gnu.org/software/emacs/download.html][ Emacs]] 24 or greater
+1) [[https://www.gnu.org/software/emacs/download.html][Emacs]] 24 or greater
 2) [[https://orgmode.org/org.html#Installation][org-mode]] 9 or greater
 3) [[https://github.com/schnorr/elsevierorg][elsevierorg]]
 * Export
