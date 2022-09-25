@@ -2,7 +2,7 @@
 # -*- mode: org -*-
 
 #+TITLE: Feature-Rich URL Shortner
-#+AUTHOR: Lucas Mello Schnorr
+#+AUTHOR: Pranav Karande
 
 #+STARTUP: overview indent
 #+LANGUAGE: pt-br
@@ -73,7 +73,7 @@
 %% \fntext[label3]{}
 
 \author{Pranav Karande}
-\author{Krishyap}
+\author{Krishap S Sreenivasan}
 \author{Tejas Mahajan}
 \author{Utkarsh Tikkiwal}
 
