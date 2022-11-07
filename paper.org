@@ -86,7 +86,7 @@ VIT, Vellore Campus, Tiruvalam Rd, Katpadi, Vellore, Tamil Nadu 632014
 
 #+LaTeX: \begin{abstract}
 
-Put the abstract here.
+URLs can get long, unattractive, and break when sent via e-mail. To shorten an Internet address, we proposed a secure URL shortening service which will take a long Web address and create a shorter address. Most of the approaches proposed for classifying malicious URLs utilize information from both social networks and URL shorting service providers. In this paper, we propose a novel approach to detect malicious short URLs by focussing on outliers in existing implementations. This is achieved by taking user feedback into account.
 
 #+LaTeX: \end{abstract}
 
@@ -113,7 +113,7 @@ Put the abstract here.
 
 #+BEGIN_EXPORT latex
 %% keywords here, in the form: keyword \sep keyword
-
+URL shortner \sep Spam Detection \sep User Feedback \sep Cassandra \sep PostgreSQL
 %% PACS codes here, in the form: \PACS code \sep code
 
 %% MSC codes here, in the form: \MSC code \sep code
@@ -125,33 +125,59 @@ Put the abstract here.
 #+LaTeX: \maketitle
 ** Introduction
 
-This is just an example to show how Orgmode can be
-neatly used to write papers following the Elsevier latex style. Feel
-free to modify and distributed this as you wish.
+URL shortening is a technique that allows you to significantly shorten your Uniform Resource Locator (URL) and still access the desired page directly. This is achieved by using a redirect which links to the web page that has a long URL. The proposed secure URL shortening service will give the user more trust to use the service with security, availability, and confidentiality consideration. A shortened URL can be used in messaging technologies which limit the number of letters, for making it easier for one to remember it, for reducing the amount of typing if someone is manually copying the URL and can be used for permalinks So they save space and make manual entry of URL easier. Some URL shortening service providers are listed on spam block lists because their redirect services are used by websites trying to bypass spam block lists. Some URL shortening service providers have found themselves on spam blocklists, because of the use of their redirect services by sites trying to bypass those very same blocklists. Some popular websites like Twitter allow only 140-character tweet to be posted on their platform. So given the limit on the length of the tweet URL shortener have become very popular method to share links on Twitter. A Popular URL shortening site is bit.ly which convert long URL into smaller ones. However, the technology has also attracted spammers. . They utilize the URL Shorteners to camouflage their spam links, enabling the spammers to hide the true domain of the URL. Our goal is to provide a safe URL shortening service that allows users to report malicious links that spread spam and malware in which we delete and block these shortened links and avoid the distribution of these inappropriate links which contain malware.
 
-Be aware that this example is compatible with OrgMode 9.*.
-
-For a detailed explanation on why and how to write reproducible
-articles using OrgMode, please visit the following [[https://github.com/alegrand/RR_webinars/blob/master/1_replicable_article_laboratory_notebook/index.org][page]].
-
-** Background and Experimental Context
-\label{sec.context}
-*** Background
-\label{sec.background}
-*** Experimental Context and Workload Details
-\label{sec.setup}
+# ** Background and Experimental Context
+# \label{sec.context}
+# *** Background
+# \label{sec.background}
+# *** Experimental Context and Workload Details
+# \label{sec.setup}
 ** Related Work and Motivation
-Check this paper about how you need to
-semantically aggregate data.
 
-** Your Great Contribution to Computer Science
-\label{sec.proposal}
-** Your Super Results
+[[./Screenshot_20221107_101754.png]]
+[[./Screenshot_20221107_101959.png]]
+[[./Screenshot_20221107_102217.png]]
+[[./Screenshot_20221107_102253.png]]
+
+# ** Your Great Contribution to Computer Science
+# \label{sec.proposal}
+# ** Your Super Results
+
+** ER Diagram
+[[./WhatsApp Image 2022-09-21 at 9.02.28 AM(1).jpeg]]
+
+** SQL Queries
+*** PostgreSQL
+**** User Login SQL command
+SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.hashed_password AS users_hashed_password, users.is_active AS users_is_active, users.is_admin AS users_is_admin
+**** Register User SQL command
+INSERT INTO users (username, email, hashed_password, is_active, is_admin) VALUES (%(username)s, %(email)s, %(hashed_password)s, %(is_active)s, %(is_admin)s) RETURNING users.id
+**** Create Complaint
+INSERT INTO complaints (link_id, body, status) VALUES (%(link_id)s, %(body)s, %(status)s) RETURNING complaints.id
+**** Get Complaints
+SELECT complaints.id AS complaints_id, complaints.link_id AS complaints_link_id, complaints.body AS complaints_body, complaints.status AS complaints_status
+*** Cassandra
+**** Create a keyspace
+CREATE KEYSPACE IF NOT EXISTS url_shortener WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : '1' };
+**** Create a table
+CREATE TABLE IF NOT EXISTS url_shortener.urls (
+key text PRIMARY KEY,
+reference text,
+owner_id int,
+action text,
+is_active boolean
+);
+**** Create link
+INSERT INTO urls (key, reference, action, owner_id, is_active) VALUES (?,?,?,?,?);
+**** Get link by key
+SELECT * FROM urls WHERE key = ? ;
 ** Conclusion
-** Acknowledgments                                                  :ignore:
+Using efficient algorithms that also consider user input, we have successfully built an efficient URL shortening service that prioritizes spam, phishing, and malware detection. We have focused on outliers in existing implementations. H. URLs that are considered safe but are actually malicious, or vice versa. The proposed secure URL shortening service allows users to use the service with more confidence, keeping security, availability and confidentiality in mind. Users can report malicious links that spread spam and malware which gets removed and blocked to prevent their spread.
+# ** Acknowledgments                                                  :ignore:
 
-#+LATEX:\section*{Acknowledgements}
+# #+LATEX:\section*{Acknowledgements}
 
-Who paid for this?
+# Who paid for this?
 
-** References                                                        :ignore:
+# ** References                                                        :ignore:
